@@ -1,0 +1,55 @@
+{
+  "name": "cowriter",
+  "version": "0.0.1",
+  "description": "kakachan's co-writer app",
+  "private": true,
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "leancloud-storage": "^1.5.3",
+    "react": "~15.4.1",
+    "react-native": "^0.39.0",
+    "react-native-code-push": "^1.16.1-beta",
+    "react-native-device-info": "^0.9.7",
+    "react-native-exceptions-manager": "^0.1.8",
+    "react-native-router-flux": "^3.37.0",
+    "react-native-scrollable-tab-view": "^0.7.0",
+    "react-native-timeago": "^0.3.0",
+    "react-native-vector-icons": "^3.0.0",
+    "react-native-camera-roll-picker": "^1.1.9",
+    "react-native-gifted-chat": "0.0.10",
+    "react-native-gifted-listview": "git+https://github.com/BelinChung/react-native-gifted-listview.git#a64c4a5",
+    "react-native-nav": "^1.1.4",
+    "react-native-navbar": "^1.5.4",
+    "react-native-parsed-text": "^0.0.16",
+    "react-native-photo-browser": "^0.2.2",
+    "react-native-tab-navigator": "^0.3.3",
+    "react-native-wechat": "^1.8.0",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.4",
+    "redux-saga": "^0.13.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^17.0.2",
+    "babel-preset-react-native": "^1.9.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "jest": "^17.0.3",
+    "react-test-renderer": "^15.4.1",
+    "redux-devtools": "^3.3.1"
+  }
+}
