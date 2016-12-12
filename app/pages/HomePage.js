@@ -15,7 +15,7 @@ import GiftedListView from 'react-native-gifted-listview';
 import styleUtils from '../utils/Styles';
 import moment from 'moment';
 import ParsedText from 'react-native-parsed-text';
-import {ajax, getAvatarUrl} from '../utils/Network';
+import {ajax} from '../utils/Network';
 
 export default class HomePage extends Component{
     constructor(props){
@@ -45,7 +45,7 @@ export default class HomePage extends Component{
     _onFetch(page = 1, callback, options) {
         if(page === 1 && options.firstLoad) {
             ajax({
-                url: 'timeline.json'
+                url: 'app/indexpage/recommend/news'
             }).then(res => {
                 if(!res.err_code) {
                     this.setState({
@@ -56,7 +56,7 @@ export default class HomePage extends Component{
             })
         } else if(page === 1 && !options.firstLoad) {
             ajax({
-                url: 'refresh_timeline.json'
+                url: 'app/indexpage/recommend/news'
             }).then(res => {
                 if(!res.err_code) {
                     let oldTimeline = this.state.timeline
@@ -68,7 +68,7 @@ export default class HomePage extends Component{
             })
         } else {
             ajax({
-                url: 'more_timeline.json'
+                url: 'app/indexpage/recommend/news'
             }).then(res => {
                 if(!res.err_code) {
                     callback(res.data, {
@@ -84,11 +84,11 @@ export default class HomePage extends Component{
             <TouchableHighlight underlayColor='transparent' onPress={this._gotoDetails.bind(this, info)}>
                 <View style={styles.tweetContainer}>
                     <View style={styles.topContainer}>
-                        <Image source={{uri: getAvatarUrl(info.avatar)}} style={styles.avatar} />
+                        <Image source={{uri: info.avatar}} style={styles.avatar} />
                         <View>
                             <View style={styles.userContainer}>
-                                <Text style={styles.name}>{info.nickname}</Text>
-                                <Text style={styles.time}>{'#' + info.id + ' '} {moment(info.created_at * 1000).fromNow()}</Text>
+                                <Text style={styles.name}>{info.name}</Text>
+                                <Text style={styles.time}>{info.nickname + ' '} {moment(info.created_at * 1000).fromNow()} {' #' + info.update} </Text>
                             </View>
                         </View>
                     </View>
@@ -101,13 +101,13 @@ export default class HomePage extends Component{
                     </View>
                     <View style={styles.bottomContainer}>
                         <TouchableHighlight style={styles.bottomTool}>
-                            <Text style={styles.bottomToolText}>Forward</Text>
+                            <Text style={styles.bottomToolText}>CoWrite</Text>
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.bottomTool}>
                             <Text style={styles.bottomToolText}>Comment</Text>
                         </TouchableHighlight>
                         <TouchableHighlight style={styles.bottomTool}>
-                            <Text style={styles.bottomToolText}>Like</Text>
+                            <Text style={styles.bottomToolText}>Follow</Text>
                         </TouchableHighlight>
                     </View>
                 </View>

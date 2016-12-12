@@ -6,22 +6,22 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Text
+    Text,
+    Image
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator';
 import styleUtils from '../utils/Styles';
-import IconfontConf from '../utils/iconfontConf';
 import HomePage from '../pages/HomePage';
 
-const tabIconfont = {
-    Home: 'E613',
-    Contacts: 'E60D',
-    Settings: 'E610',
-    HomeSelected: 'E602',
-    ContactsSelected: 'E614',
-    SettingsSelected: 'E60F'
-}
+const tabIconImg = {
+    Home: require('../img/home.png'),
+    Repository: require('../img/disk.png'),
+    Me: require('../img/me.png'),
+    HomeSelected: require('../img/home_light.png'),
+    RepositorySelected: require('../img/disk_light.png'),
+    MeSelected: require('../img/me_light.png')
+};
 
 export default class TabComponent extends Component {
     constructor(props){
@@ -36,8 +36,8 @@ export default class TabComponent extends Component {
         return(
             <TabNavigator hidesTabTouch={true} sceneStyle={styles.sceneStyle}>
                 {this._renderTabItem('Home', <HomePage navigator={this.props.navigator}></HomePage>)}
-                {this._renderTabItem('Contacts', <View></View>)}
-                {this._renderTabItem('Settings', <View></View>)}
+                {this._renderTabItem('Repository', <View></View>)}
+                {this._renderTabItem('Me', <View></View>)}
             </TabNavigator>
         )
     }
@@ -59,8 +59,9 @@ export default class TabComponent extends Component {
 
     _renderTabItemIcon(tag, selected = false) {
         tag = selected ? tag + 'Selected' : tag;
+        let img = tabIconImg[tag];
         return (
-            <Text style={[styles.tabIcon, selected ? styles.selectedTabIcon : {}]}>{IconfontConf('uni' + tabIconfont[tag])}</Text>
+        <Image source={img}/>
         )
     }
 }
@@ -83,6 +84,12 @@ const styles = StyleSheet.create({
         fontFamily: 'iconfont'
     },
     selectedTabIcon: {
+        color: '#ff9630'
+    },
+    tabImg: {
+        color: '#929292'
+    },
+    selectedTabImg: {
         color: '#ff9630'
     }
 })

@@ -1,8 +1,9 @@
 /**
  * Created by kakachan on 16/12/11.
  */
+const config = require('../config');
 
-const API_PATH = 'http://localhost:8900/'
+const API_PATH = config.cgi_config.host;
 
 function _param(obj = {}) {
     let _ = encodeURIComponent
@@ -35,8 +36,4 @@ export function ajax({url, query, data, method = 'GET'}) {
     let failure = _networkFail.bind(this)
 
     return promise.then(resp => resp.ok ? resp.json().then(success) : failure(resp))
-}
-
-export function getAvatarUrl(ID) {
-    return 'http://lorempixel.com/68/68/people/' + ID
 }

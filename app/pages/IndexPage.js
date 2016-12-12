@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import TabComponent from '../components/TabComponent';
+import NaviComponent from '../components/NaviComponent';
 
 export default class IndexPage extends Component {
     constructor(props){
@@ -22,6 +23,7 @@ export default class IndexPage extends Component {
     render(){
         return (
             <View style={styles.container}>
+                <NaviComponent route={this.props.route} navigator={this.props.navigator} />
                 <TabComponent navigator={this.props.navigator}/>
             </View>
         )
