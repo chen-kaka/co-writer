@@ -53,6 +53,9 @@ export default {
             fontWeight: '600',
             fontSize: 14
         },
+        userContainer: {
+            flexDirection: 'row'
+        },
         middleContainer: {
             padding: 10,
             borderColor: '#e1e1e1',
@@ -67,6 +70,12 @@ export default {
             flexDirection: 'row',
             height: 40,
             backgroundColor: '#fafafa'
+        },
+        repoBottom: {
+            flexDirection: 'row',
+            padding: 5,
+            borderColor: '#e1e1e1',
+            borderBottomWidth: 1
         },
         bottomTool: {
             flexGrow: 1,

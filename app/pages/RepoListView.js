@@ -1,8 +1,10 @@
 /**
- * Created by kakachan on 16/12/9.
+ * Created by kakachan on 16/12/13.
  */
 
+
 import React, {Component} from 'react';
+
 import {
     StyleSheet,
     View,
@@ -11,17 +13,25 @@ import {
     Platform,
     Text
 } from 'react-native';
+
 import GiftedListView from 'react-native-gifted-listview';
 import styleUtils from '../utils/Styles';
 import moment from 'moment';
 import ParsedText from 'react-native-parsed-text';
 import {ajax} from '../utils/Network';
+const PropTypes = React.PropTypes;
 
-export default class HomePage extends Component{
-    constructor(props){
+const propTypes = {
+    tabLabel: PropTypes.string
+}
+
+export default class RepoListView1 extends Component {
+    constructor(props) {
         super(props);
+        // alert(this.props.tabLabel);
+
         this.state = {
-            timeline: []
+
         }
     }
 
@@ -43,9 +53,16 @@ export default class HomePage extends Component{
     }
 
     _onFetch(page = 1, callback, options) {
+        let reqUrl = "app/resources/my_repos/list";
+        if(this.props.tabLabel == 'ShareRepos'){
+            reqUrl = "app/resources/share_repos/list";
+        }else if(this.props.tabLabel == 'CoWrites'){
+            reqUrl = "app/resources/co_writes/list";
+        }
+
         if(page === 1 && options.firstLoad) {
             ajax({
-                url: 'app/indexpage/recommend/news'
+                url: reqUrl
             }).then(res => {
                 if(!res.err_code) {
                     this.setState({
@@ -56,7 +73,7 @@ export default class HomePage extends Component{
             })
         } else if(page === 1 && !options.firstLoad) {
             ajax({
-                url: 'app/indexpage/recommend/news'
+                url: reqUrl
             }).then(res => {
                 if(!res.err_code) {
                     let oldTimeline = this.state.timeline
@@ -68,7 +85,7 @@ export default class HomePage extends Component{
             })
         } else {
             ajax({
-                url: 'app/indexpage/recommend/news'
+                url: reqUrl
             }).then(res => {
                 if(!res.err_code) {
                     callback(res.data, {
@@ -80,6 +97,11 @@ export default class HomePage extends Component{
     }
 
     _renderRowView(info) {
+        let newText = info.Text;
+        if(info.text && info.text.length > 100){
+            newText = info.text.substr(0, 100);
+        }
+
         return (
             <TouchableHighlight underlayColor='transparent' onPress={this._gotoDetails.bind(this, info)}>
                 <View style={styles.tweetContainer}>
@@ -87,26 +109,21 @@ export default class HomePage extends Component{
                         <Image source={{uri: info.avatar}} style={styles.avatar} />
                         <View>
                             <Text style={styles.name}>{info.name}</Text>
-                            <Text style={styles.time}>{info.nickname + ' '} {moment(info.created_at * 1000).fromNow()} {' #' + info.update} </Text>
+                            <Text style={styles.time}>{' Author:  ' + info.nickname} {'    ' + moment(info.created_at * 1000).fromNow()} </Text>
                         </View>
                     </View>
                     <View style={styles.middleContainer}>
                         <ParsedText
                             parse={
                             [{type: 'url', style: customStyles.url, onPress: this._handleUrlPress.bind(this)}]}
-                        >{info.text}</ParsedText>
-                        {this._renderMsgImage(info)}
+                        >{newText}</ParsedText>
                     </View>
-                    <View style={styles.bottomContainer}>
-                        <TouchableHighlight style={styles.bottomTool}>
-                            <Text style={styles.bottomToolText}>CoWrite</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomTool}>
-                            <Text style={styles.bottomToolText}>Comment</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomTool}>
-                            <Text style={styles.bottomToolText}>Follow</Text>
-                        </TouchableHighlight>
+                    <View style={styles.repoBottom}>
+                        <View>
+                            <Text style={styles.time}>{"tags: " + info.tags}</Text>
+                            <Text style={styles.time}>{"last update: " + moment(info.last_update * 1000).fromNow()}</Text>
+                            <Text style={styles.time}>{"likes: " + info.likes}</Text>
+                        </View>
                     </View>
                 </View>
             </TouchableHighlight>
@@ -155,6 +172,7 @@ export default class HomePage extends Component{
         })
     }
 }
+
 
 const customStyles = {
     paginationView: {

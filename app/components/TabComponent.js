@@ -13,14 +13,16 @@ import {
 import TabNavigator from 'react-native-tab-navigator';
 import styleUtils from '../utils/Styles';
 import HomePage from '../pages/HomePage';
+import RepositoryPage from '../pages/RepositoryPage';
+import UserPage from '../pages/UserPage';
 
 const tabIconImg = {
     Home: require('../img/home.png'),
     Repository: require('../img/disk.png'),
-    Me: require('../img/me.png'),
+    Me: require('../img/user.png'),
     HomeSelected: require('../img/home_light.png'),
     RepositorySelected: require('../img/disk_light.png'),
-    MeSelected: require('../img/me_light.png')
+    MeSelected: require('../img/user_light.png')
 };
 
 export default class TabComponent extends Component {
@@ -28,7 +30,7 @@ export default class TabComponent extends Component {
         super(props);
 
         this.state = {
-            selectedTab : 'Home'
+            selectedTab : 'Repository'
         };
     }
     
@@ -36,8 +38,8 @@ export default class TabComponent extends Component {
         return(
             <TabNavigator hidesTabTouch={true} sceneStyle={styles.sceneStyle}>
                 {this._renderTabItem('Home', <HomePage navigator={this.props.navigator}></HomePage>)}
-                {this._renderTabItem('Repository', <View></View>)}
-                {this._renderTabItem('Me', <View></View>)}
+                {this._renderTabItem('Repository', <RepositoryPage navigator={this.props.navigator}></RepositoryPage>)}
+                {this._renderTabItem('Me', <UserPage navigator={this.props.navigator}></UserPage>)}
             </TabNavigator>
         )
     }
