@@ -15,8 +15,10 @@ import {
     Navigator
 } from 'react-native';
 import {ajax} from '../utils/Network';
-import Icon from 'react-native-vector-icons/Ionicons';
-const Colors = require('../utils/Colors');
+import Colors from '../utils/Colors';
+import ItemCell from '../components/ItemCell';
+import Button from 'apsl-react-native-button';
+import styleUtils from '../utils/Styles'
 
 const ICON_SIZE = 18;
 
@@ -43,6 +45,13 @@ export default class UserPage extends Component{
                 alert("err: " + err);
             }
 
+        })
+    }
+
+    _gotoView(view) {
+        this.props.navigator.push({
+            title: view,//capitalize(view),
+            id: view
         })
     }
 
@@ -97,6 +106,45 @@ export default class UserPage extends Component{
                         {userSummary}
                     </View>
                 </View>
+                <ItemCell
+                    onPress={this._gotoView.bind(this, 'messages')}
+                    showDisclosureIndicator={true}
+                    showBottomBorder={false}
+                    iconStyle={itemCellColor.feedbackIcon}
+                    containerStyle={itemCellColor.container}
+                    icon={require('../img/messages.png')}>
+                    Messages
+                </ItemCell>
+                <ItemCell
+                    onPress={this._gotoView.bind(this, 'groups')}
+                    showDisclosureIndicator={true}
+                    showBottomBorder={false}
+                    iconStyle={itemCellColor.languageIcon}
+                    containerStyle={itemCellColor.container}
+                    icon={require('../img/groups.png')}>
+                    Groups
+                </ItemCell>
+                <ItemCell
+                    onPress={this._gotoView.bind(this, 'feedback')}
+                    showDisclosureIndicator={true}
+                    showBottomBorder={false}
+                    iconStyle={itemCellColor.feedbackIcon}
+                    containerStyle={itemCellColor.container}
+                    icon={require('../img/feedback.png')}>
+                    Feedback
+                </ItemCell>
+                <ItemCell
+                    onPress={this._gotoView.bind(this, 'about')}
+                    showDisclosureIndicator={true}
+                    showBottomBorder={false}
+                    iconStyle={itemCellColor.aboutIcon}
+                    containerStyle={itemCellColor.container}
+                    icon={require('../img/default_logo.jpeg')}>
+                    About
+                </ItemCell>
+                <Button style={styles.logoutButton} textStyle={styles.logoutButtonFontsize}>
+                    Sign Out
+                </Button>
             </View>
         )
     }
@@ -228,5 +276,27 @@ var styles = StyleSheet.create({
         fontSize: 13,
         fontWeight: 'normal'
     },
-
+    logoutButton: {
+        backgroundColor: '#A52A2A',
+        borderWidth: 0,
+        margin: 10,
+        marginTop: 20
+    },
+    logoutButtonFontsize: {
+        fontSize: 14,
+        color: 'white'
+    }
 });
+
+const itemCellColor = {
+    container: styleUtils.itemCell,
+    feedbackIcon: {
+        backgroundColor: '#38b57f'
+    },
+    languageIcon: {
+        backgroundColor: '#9b59b6'
+    },
+    aboutIcon: {
+        backgroundColor: '#5999f3'
+    }
+}

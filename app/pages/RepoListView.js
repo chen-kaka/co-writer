@@ -102,6 +102,9 @@ export default class RepoListView1 extends Component {
             newText = info.text.substr(0, 100);
         }
 
+        const createDateStr = new Date(info.created_at * 1000).toISOString().slice(0, 10);
+        const updateDateStr = new Date(info.last_update * 1000).toISOString().slice(0, 10);
+
         return (
             <TouchableHighlight underlayColor='transparent' onPress={this._gotoDetails.bind(this, info)}>
                 <View style={styles.tweetContainer}>
@@ -109,7 +112,7 @@ export default class RepoListView1 extends Component {
                         <Image source={{uri: info.avatar}} style={styles.avatar} />
                         <View>
                             <Text style={styles.name}>{info.name}</Text>
-                            <Text style={styles.time}>{' Author:  ' + info.nickname} {'    ' + moment(info.created_at * 1000).fromNow()} </Text>
+                            <Text style={styles.time}>{' Author:  ' + info.nickname} {'    ' + createDateStr} </Text>
                         </View>
                     </View>
                     <View style={styles.middleContainer}>
@@ -121,7 +124,7 @@ export default class RepoListView1 extends Component {
                     <View style={styles.repoBottom}>
                         <View>
                             <Text style={styles.time}>{"tags: " + info.tags}</Text>
-                            <Text style={styles.time}>{"last update: " + moment(info.last_update * 1000).fromNow()}</Text>
+                            <Text style={styles.time}>{"last update: " + updateDateStr}</Text>
                             <Text style={styles.time}>{"likes: " + info.likes}</Text>
                         </View>
                     </View>
