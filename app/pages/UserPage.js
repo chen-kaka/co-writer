@@ -18,7 +18,8 @@ import {ajax} from '../utils/Network';
 import Colors from '../utils/Colors';
 import ItemCell from '../components/ItemCell';
 import Button from 'apsl-react-native-button';
-import styleUtils from '../utils/Styles'
+import styleUtils from '../utils/Styles';
+import moment from 'moment';
 
 const ICON_SIZE = 18;
 
@@ -80,7 +81,7 @@ export default class UserPage extends Component{
             }
 
             if (this.state.user.create_at) {
-                const date = new Date(this.state.user.create_at * 1000).toISOString().slice(0, 10);
+                const date = moment(this.state.user.create_at).toISOString().slice(0, 10);
                 const joined = 'Joined Date: ' + date;
                 userJoined = (
                     <View style={styles.iconTextContainer}>

@@ -30,7 +30,7 @@ export default class TabComponent extends Component {
         super(props);
 
         this.state = {
-            selectedTab : 'Me'
+            selectedTab : 'Home'
         };
     }
     
