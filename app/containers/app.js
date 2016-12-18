@@ -8,6 +8,8 @@ import {
 import About from '../pages/About';
 import TabIcon from '../components/TabIcon';
 import IndexPage from '../pages/IndexPage';
+import NewRepoComponent from '../components/NewRepoComponent';
+import NewGroupComponent from '../components/NewGroupComponent';
 import {connect} from 'react-redux';
 import {
   Router,
@@ -70,9 +72,17 @@ class App extends Component {
 
   _renderScene(route, navigator) {
     switch (route.id) {
-      case 'index':
+      case 'index':  //首页
         return (
             <IndexPage navigator={navigator} route={route}/>
+        )
+      case 'newRepo':  //新建资源
+        return (
+            <NewRepoComponent navigator={navigator} route={route}/>
+        )
+      case 'newGroup':  //新建资源
+        return (
+            <NewGroupComponent navigator={navigator} route={route}/>
         )
       default:
         break

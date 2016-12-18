@@ -13,10 +13,12 @@ import {
 
 
 import NavigationBar from 'react-native-navbar';
+import ModalPicker from './react-native-modal-picker';
 
 const IconImgConf = {
-  index : require('../img/add24.png')
+  index : require('../img/add48.png')
 };
+
 
 export default class NaviComponent extends Component {
     constructor(props) {
@@ -60,12 +62,7 @@ export default class NaviComponent extends Component {
     _rightButton() {
         switch (this.props.route.id) {
             case 'index':
-                return _renderBarButton('index', () => {
-                    this.props.navigator.push({
-                        title: 'New Repo',
-                        id: 'newRepo'
-                    })
-                }, true, {
+                return _renderBarButton('index', this._renderModalChange.bind(this), true, {
                     width: 50
                 })
             default:
@@ -80,18 +77,49 @@ export default class NaviComponent extends Component {
             </View>
         )
     }
+
+    _renderModalChange(option) {
+        // alert(`${option.label} (${option.key}) nom nom nom`);
+
+        let title = '';
+        let naviId = '';
+        switch(option.label){
+            case 'Repository':
+                naviId = 'newRepo';
+                break;
+            case 'Group':
+                naviId = 'newGroup';
+                break;
+            default:
+                break;
+        }
+
+        this.props.navigator.push({
+            title: title,
+            id: naviId
+        })
+    }
 }
 
 function _renderBarButton(text, handler, icon = false, buttonStyle = {}, buttonTextStyle = {}) {
     let buttonText = [styles.buttonText, buttonTextStyle]
     let img = IconImgConf[text];
+
+    let index = 0;
+    const data = [
+        { key: index++, section: true, label: 'New Repo' },
+        { key: index++, label: 'Repository' },
+        { key: index++, label: 'Group' }
+    ];
     return (
-        <TouchableOpacity
-            onPress={handler}
-            style={[styles.button, buttonStyle]}>
-            <Image source={img}/>
-        </TouchableOpacity>
+        <View style={[styles.button, buttonStyle]}>
+        <ModalPicker
+            data={data}
+            onChange={handler} />
+        </View>
     )
+
+        // <Image style={styles.imgStyle} source={img}/>
 }
 
 const styles = {
@@ -120,5 +148,9 @@ const styles = {
     buttonIconFontText: {
         fontSize: 26,
         fontFamily: 'iconfont'
+    },
+    imgStyle:{
+        width:24,
+        height:24
     }
 }
