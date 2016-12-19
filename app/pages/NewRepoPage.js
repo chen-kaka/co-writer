@@ -31,7 +31,6 @@ export default class NewRepoPage extends Component{
     }
 
     render(){
-
         return(
             <View style={styles.container}>
                 <NaviComponent route={this.props.route} navigator={this.props.navigator} />
@@ -53,7 +52,7 @@ export default class NewRepoPage extends Component{
                 [
                     {text: 'OK'}
                 ]
-            )
+            );
             return;
         }
 
@@ -69,10 +68,10 @@ export default class NewRepoPage extends Component{
             method : 'POST'
         }).then(res => {
             try{
-                alert(JSON.stringify(res));
+                // alert(JSON.stringify(res));
                 if(!res.err_code) {
                     Alert.alert(
-                        'Create Success: ',
+                        'create success. repo name: ',
                         this.state.nameText,
                         [
                             {text: 'OK', onPress: () => this.props.navigator.pop()}
@@ -82,7 +81,6 @@ export default class NewRepoPage extends Component{
             }catch(err){
                 alert("err: " + err);
             }
-
         })
     }
 
