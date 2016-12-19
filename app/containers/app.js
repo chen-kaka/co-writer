@@ -8,8 +8,8 @@ import {
 import About from '../pages/About';
 import TabIcon from '../components/TabIcon';
 import IndexPage from '../pages/IndexPage';
-import NewRepoComponent from '../components/NewRepoComponent';
-import NewGroupComponent from '../components/NewGroupComponent';
+import NewRepoComponent from '../pages/NewRepoPage';
+import NewGroupComponent from '../pages/NewGroupPage';
 import {connect} from 'react-redux';
 import {
   Router,

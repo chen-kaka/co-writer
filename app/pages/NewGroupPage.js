@@ -9,7 +9,7 @@ import {
     Text
 } from 'react-native';
 
-export default class NewRepoComponent extends Component{
+export default class NewRepoPage extends Component{
     constructor(props){
         super(props);
 

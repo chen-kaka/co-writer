@@ -8,7 +8,8 @@ import {
     Text,
     TouchableOpacity,
     Platform,
-    Image
+    Image,
+    TouchableHighlight
 } from 'react-native';
 
 
@@ -64,7 +65,11 @@ export default class NaviComponent extends Component {
             case 'index':
                 return _renderBarButton('index', this._renderModalChange.bind(this), true, {
                     width: 50
-                })
+                });
+            case 'newRepo':
+                return _renderBarButton('newRepo', this.props.route.createRepo, true, {
+                    width: 50
+                });
             default:
                 break
         }
@@ -79,8 +84,6 @@ export default class NaviComponent extends Component {
     }
 
     _renderModalChange(option) {
-        // alert(`${option.label} (${option.key}) nom nom nom`);
-
         let title = '';
         let naviId = '';
         switch(option.label){
@@ -102,24 +105,32 @@ export default class NaviComponent extends Component {
 }
 
 function _renderBarButton(text, handler, icon = false, buttonStyle = {}, buttonTextStyle = {}) {
-    let buttonText = [styles.buttonText, buttonTextStyle]
-    let img = IconImgConf[text];
-
-    let index = 0;
-    const data = [
-        { key: index++, section: true, label: 'New Repo' },
-        { key: index++, label: 'Repository' },
-        { key: index++, label: 'Group' }
-    ];
-    return (
-        <View style={[styles.button, buttonStyle]}>
-        <ModalPicker
-            data={data}
-            onChange={handler} />
-        </View>
-    )
-
-        // <Image style={styles.imgStyle} source={img}/>
+    switch (text) {
+        case 'index':  //首页按钮
+            let index = 0;
+            const data = [
+                { key: index++, section: true, label: 'New Repo' },
+                { key: index++, label: 'Repository' },
+                { key: index++, label: 'Group' }
+            ];
+            return (
+                <View style={[styles.button, buttonStyle]}>
+                    <ModalPicker
+                        data={data}
+                        onChange={handler} />
+                </View>
+            )
+        case 'newRepo':  //发布页按钮
+            return (
+                <TouchableHighlight activeOpacity={0.7} onPress={handler}>
+                    <View>
+                        <Text style={styles.naviText}>publish</Text>
+                    </View>
+                </TouchableHighlight>
+            )
+        default:
+            break
+    }
 }
 
 const styles = {
@@ -140,6 +151,13 @@ const styles = {
         width: 35,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    naviText: {
+        fontSize: 16,
+        color: '#333',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingRight:10
     },
     buttonText: {
         fontSize: 16,

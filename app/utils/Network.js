@@ -24,7 +24,11 @@ function _fetch(url, data, method) {
     return fetch(url, {
         body: JSON.stringify(data),
         method,
-        credentials: 'same-origin'
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' //记得加上这行，不然bodyParser.json() 会识别不了
+        },
     })
 }
 
