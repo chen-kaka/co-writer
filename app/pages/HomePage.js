@@ -87,7 +87,7 @@ export default class HomePage extends Component{
                         <Image source={{uri: info.avatar}} style={styles.avatar} />
                         <View>
                             <Text style={styles.name}>{info.name}</Text>
-                            <Text style={styles.time}>{info.nickname + ' '} {moment(info.created_at * 1000).fromNow()} {' #' + info.update} </Text>
+                            <Text style={styles.time}>{info.nickname + '   '} {moment(info.created_at * 1000).fromNow()}</Text>
                         </View>
                     </View>
                     <View style={styles.middleContainer}>
