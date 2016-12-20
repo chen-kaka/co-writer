@@ -10,6 +10,7 @@ import TabIcon from '../components/TabIcon';
 import IndexPage from '../pages/IndexPage';
 import NewRepoComponent from '../pages/NewRepoPage';
 import NewGroupComponent from '../pages/NewGroupPage';
+import RepoDetail from '../pages/RepoDetail';
 import {connect} from 'react-redux';
 import {
   Router,
@@ -80,9 +81,13 @@ class App extends Component {
         return (
             <NewRepoComponent navigator={navigator} route={route}/>
         )
-      case 'newGroup':  //新建资源
+      case 'newGroup':  //新建组
         return (
             <NewGroupComponent navigator={navigator} route={route}/>
+        )
+      case 'repoDetail': //资源详情
+        return (
+            <RepoDetail {...route.params} navigator={navigator} route={route}/>
         )
       default:
         break

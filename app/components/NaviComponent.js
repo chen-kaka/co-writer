@@ -111,7 +111,7 @@ function _renderBarButton(text, handler, icon = false, buttonStyle = {}, buttonT
             const data = [
                 { key: index++, section: true, label: 'New Repo' },
                 { key: index++, label: 'Repository' },
-                { key: index++, label: 'Group' }
+                // { key: index++, label: 'Group' }
             ];
             return (
                 <View style={[styles.button, buttonStyle]}>
