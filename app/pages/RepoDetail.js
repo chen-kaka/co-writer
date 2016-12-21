@@ -34,8 +34,8 @@ export default class RepoDetail extends Component{
     componentDidMount(){
         let repoInfo = this.props.repoInfo;
         ajax({
-            url: 'app/comment/comment/query',
-            query: {node_id: '5858eeafd99cb10d78051538'}//repoInfo._id}
+            url: 'app/comment/comment/query_repo',
+            query: {repo_id: '585a1c1a36af130950b1d5be'}//repoInfo._id}
         }).then(res =>{
             if(!res.err_code){
                 let comments = res.data;
