@@ -7,6 +7,6 @@
  */
 module.exports = {
   "cgi_config" : {
-      "host" : "http://10.2.240.167:8900/"
+      "host" : "http://10.2.240.154:8900/"
   }
 };

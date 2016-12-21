@@ -17,7 +17,8 @@ import NavigationBar from 'react-native-navbar';
 import ModalPicker from './react-native-modal-picker';
 
 const IconImgConf = {
-  index : require('../img/add48.png')
+    index : require('../img/add48.png'),
+    returnImg: require('../img/left_arrow_48.png')
 };
 
 
@@ -50,13 +51,15 @@ export default class NaviComponent extends Component {
         switch (this.props.route.id) {
             case 'index':
                 return (<View></View>)
-            case 'tweet':
-                return _renderBarButton('Cancel', () => this.props.navigator.pop(), false, {
+            case 'newRepo':
+                return _renderBarButton('cancel', () => this.props.navigator.pop(), false, {
                     width: 50,
                     marginLeft: 10
-                })
+                });
+            case 'repoDetail':
+                return _renderBarButton('return', () => this.props.navigator.pop(), false);
             default:
-                return _renderBarButton('uniE617', () => this.props.navigator.pop(), true)
+                return _renderBarButton('return', () => this.props.navigator.pop(), true);
         }
     }
 
@@ -104,7 +107,7 @@ export default class NaviComponent extends Component {
     }
 }
 
-function _renderBarButton(text, handler, icon = false, buttonStyle = {}, buttonTextStyle = {}) {
+function _renderBarButton(text, handler, icon = false, buttonStyle = {}) {
     switch (text) {
         case 'index':  //首页按钮
             let index = 0;
@@ -125,6 +128,22 @@ function _renderBarButton(text, handler, icon = false, buttonStyle = {}, buttonT
                 <TouchableHighlight activeOpacity={0.7} onPress={handler}>
                     <View>
                         <Text style={styles.naviText}>publish</Text>
+                    </View>
+                </TouchableHighlight>
+            )
+        case 'cancel': //
+            return (
+                <TouchableHighlight activeOpacity={0.7} onPress={handler}>
+                    <View>
+                        <Text style={styles.naviText}>cancel</Text>
+                    </View>
+                </TouchableHighlight>
+            )
+        case 'return': //
+            return (
+                <TouchableHighlight activeOpacity={0.7} onPress={handler}>
+                    <View>
+                        <Image source={IconImgConf.returnImg} style={styles.imgLeftStyle}/>
                     </View>
                 </TouchableHighlight>
             )
@@ -157,7 +176,8 @@ const styles = {
         color: '#333',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingRight:10
+        paddingRight:5,
+        paddingLeft:5,
     },
     buttonText: {
         fontSize: 16,
@@ -167,8 +187,9 @@ const styles = {
         fontSize: 26,
         fontFamily: 'iconfont'
     },
-    imgStyle:{
+    imgLeftStyle:{
         width:24,
-        height:24
+        height:24,
+        paddingLeft:20,
     }
 }

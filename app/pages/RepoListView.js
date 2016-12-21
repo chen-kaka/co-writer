@@ -25,7 +25,7 @@ const propTypes = {
     tabLabel: PropTypes.string
 }
 
-export default class RepoListView1 extends Component {
+export default class RepoListView extends Component {
     constructor(props) {
         super(props);
         // alert(this.props.tabLabel);
@@ -153,12 +153,12 @@ export default class RepoListView1 extends Component {
         })
     }
 
-    _gotoDetails(tweet) {
+    _gotoDetails(info) {
         this.props.navigator.push({
-            title: 'Tweet',
-            id: 'tweetDetails',
+            title: 'Repository',
+            id: 'repoDetail',
             params: {
-                tweet: tweet
+                repoInfo: info
             }
         })
     }
