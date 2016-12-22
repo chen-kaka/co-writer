@@ -19,6 +19,7 @@ import {ajax} from '../utils/Network';
 import styleUtils from '../utils/Styles';
 import NaviComponent from '../components/NaviComponent';
 import CommentComponent from '../components/CommentComponent';
+import RepoNodeComponent from '../components/RepoNodeComponent';
 import moment from 'moment';
 
 export default class RepoDetail extends Component{
@@ -26,13 +27,30 @@ export default class RepoDetail extends Component{
         super(props);
         
         this.state = {
-            loadding : false,
-            comments: []
+            loadding : true,
+            node_loadding: true,
+            comments: [],
+            repo_nodes: [],
         }
     }
     
     componentDidMount(){
         let repoInfo = this.props.repoInfo;
+        //加载列表
+        ajax({
+            url: 'app/resources/repo_node/query',
+            query: {repo_id: '5853a83f16480c0ace8a9263'}//repoInfo._id}
+        }).then(res =>{
+            if(!res.err_code){
+                let repo_nodes = res.data;
+
+                this.setState({
+                    node_loadding: false,
+                    repo_nodes: repo_nodes
+                })
+            }
+        });
+
         ajax({
             url: 'app/comment/comment/query_repo',
             query: {repo_id: '585a1c1a36af130950b1d5be'}//repoInfo._id}
@@ -75,6 +93,12 @@ export default class RepoDetail extends Component{
                             >{repoInfo.text}</ParsedText>
                             {this._renderMsgImage(repoInfo)}
                         </View>
+                    </View>
+                    <View style={styles.commentContainer}>
+                        <View style={styles.commentTitle}>
+                            <Text style={styles.commentTitleText}>Repo Nodes</Text>
+                        </View>
+                        <RepoNodeComponent loadding={this.state.node_loadding} repo_nodes={this.state.repo_nodes}/>
                     </View>
                     <View style={styles.commentContainer}>
                         <View style={styles.commentTitle}>

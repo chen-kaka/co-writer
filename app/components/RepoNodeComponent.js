@@ -1,5 +1,5 @@
 /**
- * Created by kakachan on 16/12/20.
+ * Created by kakachan on 16/12/22.
  */
 
 import React, {
@@ -19,7 +19,7 @@ import {
 import styleUtils from '../utils/Styles';
 import moment from 'moment';
 
-export default class CommentsComponent extends Component {
+export default class RepoNodeComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,35 +28,39 @@ export default class CommentsComponent extends Component {
     }
 
     render() {
-        if(this.props.loadding) {
+        if(this.props.node_loadding) {
             return this._renderSpinner()
-        } else if(this.props.comments.length) {
-            return this._renderCommentList()
+        } else if(this.props.repo_nodes.length) {
+            return this._renderRepoNodeList()
         } else {
             return this._renderEmptyList()
         }
     }
 
-    _renderCommentList() {
+    _renderRepoNodeList() {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-        let dataSource = ds.cloneWithRows(this.props.comments)
+        let dataSource = ds.cloneWithRows(this.props.repo_nodes)
         return (
             <ListView
                 dataSource={dataSource}
-                renderRow={this._renderCommentRow}
+                renderRow={this._renderRepoNodeRow}
                 style={styles.container}
             />
         )
     }
 
-    _renderCommentRow(comment) {
+    _renderRepoNodeRow(repoNode) {
+        let content = '';
+        if(repoNode.content && repoNode.content.text){
+            content = repoNode.content.text;
+        }
         return (
             <View style={styles.commentContainer}>
-                <Image source={{uri: comment.avatar}} style={styles.commentAvatar} />
+                <Image source={{uri: repoNode.avatar}} style={styles.commentAvatar} />
                 <View style={styles.commentRightContainer}>
-                    <Text style={styles.commentTime}>{comment.username + '   ' + moment(comment.create_at).fromNow()}</Text>
-                    <Text style={styles.commentName}>{comment.title}</Text>
-                    <Text style={styles.commentText}>{comment.comment}</Text>
+                    <Text style={styles.commentTime}>{repoNode.username + '   ' + moment(repoNode.create_at).fromNow()}</Text>
+                    <Text style={styles.commentName}>{repoNode.name}</Text>
+                    <Text style={styles.commentText}>{content}</Text>
                 </View>
             </View>
         )
@@ -65,7 +69,7 @@ export default class CommentsComponent extends Component {
     _renderEmptyList() {
         return (
             <View style={[styles.container, styles.emptyContainer]}>
-                <Text style={styles.emptyText}>Empty Comments</Text>
+                <Text style={styles.emptyText}>Empty Repo Nodes</Text>
             </View>
         )
     }
@@ -84,7 +88,7 @@ export default class CommentsComponent extends Component {
     }
 }
 
-CommentsComponent.defaultProps = {
+RepoNodeComponent.defaultProps = {
     loading: true,
     comments: []
 }
