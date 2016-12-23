@@ -13,7 +13,8 @@ import {
     Platform,
     ListView,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableHighlight
 } from 'react-native'
 
 import styleUtils from '../utils/Styles';
@@ -21,7 +22,7 @@ import moment from 'moment';
 
 export default class RepoNodeComponent extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
 
         }
@@ -43,7 +44,7 @@ export default class RepoNodeComponent extends Component {
         return (
             <ListView
                 dataSource={dataSource}
-                renderRow={this._renderRepoNodeRow}
+                renderRow={this._renderRepoNodeRow.bind(this)}
                 style={styles.container}
             />
         )
@@ -54,7 +55,17 @@ export default class RepoNodeComponent extends Component {
         if(repoNode.content && repoNode.content.text){
             content = repoNode.content.text;
         }
+        // alert('nodeInfo: ' + JSON.stringify(repoNode));
         return (
+            <TouchableHighlight onPress={()=>{
+            this.props.navigator.push({
+                title: 'Repo Node',
+                id: 'repoNode',
+                params: {
+                    nodeInfo: repoNode
+                }
+            })
+            }}>
             <View style={styles.commentContainer}>
                 <Image source={{uri: repoNode.avatar}} style={styles.commentAvatar} />
                 <View style={styles.commentRightContainer}>
@@ -63,9 +74,21 @@ export default class RepoNodeComponent extends Component {
                     <Text style={styles.commentText}>{content}</Text>
                 </View>
             </View>
+            </TouchableHighlight>
         )
     }
 
+    handleNodeDetail(nodeInfo) {
+        alert("dd");
+        // this.props.navigator.push({
+        //     title: 'Repo Node',
+        //     id: 'repoNode',
+        //     params: {
+        //         nodeInfo: nodeInfo
+        //     }
+        // })
+    }
+    
     _renderEmptyList() {
         return (
             <View style={[styles.container, styles.emptyContainer]}>
@@ -86,6 +109,7 @@ export default class RepoNodeComponent extends Component {
             </View>
         )
     }
+
 }
 
 RepoNodeComponent.defaultProps = {

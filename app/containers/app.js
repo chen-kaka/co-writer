@@ -11,6 +11,8 @@ import IndexPage from '../pages/IndexPage';
 import NewRepoComponent from '../pages/NewRepoPage';
 import NewGroupComponent from '../pages/NewGroupPage';
 import RepoDetail from '../pages/RepoDetail';
+import RepoNodeDetail from '../pages/RepoNodeDetail';
+
 import {connect} from 'react-redux';
 import {
   Router,
@@ -88,6 +90,10 @@ class App extends Component {
       case 'repoDetail': //资源详情
         return (
             <RepoDetail {...route.params} navigator={navigator} route={route}/>
+        )
+      case 'repoNode': //资源节点详情
+        return(
+            <RepoNodeDetail {...route.params} navigator={navigator} route={route}/>
         )
       default:
         break
