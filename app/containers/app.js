@@ -5,7 +5,7 @@ import {
   Navigator,
   View
 } from 'react-native';
-import About from '../pages/About';
+import AboutPage from '../pages/AboutPage';
 import TabIcon from '../components/TabIcon';
 import IndexPage from '../pages/IndexPage';
 import NewRepoComponent from '../pages/NewRepoPage';
@@ -99,6 +99,10 @@ class App extends Component {
       case 'feedback':
         return (
             <FeedbackPage navigator={navigator} route={route} />
+        )
+      case 'about':
+        return (
+            <AboutPage navigator={navigator} route={route} />
         )
       default:
         break
