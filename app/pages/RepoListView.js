@@ -53,16 +53,21 @@ export default class RepoListView extends Component {
     }
 
     _onFetch(page = 1, callback, options) {
-        let reqUrl = "app/resources/my_repos/list";
-        if(this.props.tabLabel == 'ShareRepos'){
+        let query = {
+            u_id : '58538dcc9822d109091c1d51'
+        };
+        let reqUrl;
+        if(this.props.tabIndex == '0'){
+            reqUrl = "app/resources/my_repos/list";
+        }else if(this.props.tabIndex == '1'){
             reqUrl = "app/resources/share_repos/list";
-        }else if(this.props.tabLabel == 'CoWrites'){
+        }else if(this.props.tabIndex == '2'){
             reqUrl = "app/resources/co_writes/list";
         }
 
         if(page === 1 && options.firstLoad) {
             ajax({
-                url: reqUrl
+                url: reqUrl, query: query
             }).then(res => {
                 if(!res.err_code) {
                     this.setState({
@@ -97,13 +102,13 @@ export default class RepoListView extends Component {
     }
 
     _renderRowView(info) {
-        let newText = info.Text;
+        let newText = info.text;
         if(info.text && info.text.length > 100){
             newText = info.text.substr(0, 100);
         }
 
-        const createDateStr = new Date(info.created_at * 1000).toISOString().slice(0, 10);
-        const updateDateStr = new Date(info.last_update * 1000).toISOString().slice(0, 10);
+        const createDateStr = moment(info.create_at).toISOString().slice(0, 10);
+        const updateDateStr = moment(info.last_update).toISOString().slice(0, 10);
 
         return (
             <TouchableHighlight underlayColor='transparent' onPress={this._gotoDetails.bind(this, info)}>
@@ -123,7 +128,6 @@ export default class RepoListView extends Component {
                     </View>
                     <View style={styles.repoBottom}>
                         <View>
-                            <Text style={styles.time}>{"tags: " + info.tags}</Text>
                             <Text style={styles.time}>{"last update: " + updateDateStr}</Text>
                             <Text style={styles.time}>{"likes: " + info.likes}</Text>
                         </View>

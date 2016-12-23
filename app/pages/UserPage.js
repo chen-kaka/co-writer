@@ -12,7 +12,8 @@ import {
     Image,
     TouchableOpacity,
     ListView,
-    Navigator
+    Navigator,
+    Alert
 } from 'react-native';
 import {ajax} from '../utils/Network';
 import Colors from '../utils/Colors';
@@ -54,6 +55,15 @@ export default class UserPage extends Component{
             title: view,
             id: view
         })
+    }
+
+    _logOut() {
+        Alert.alert(
+            'LogOut Success.','',
+            [
+                {text: 'OK'}
+            ]
+        );
     }
 
     render(){
@@ -143,7 +153,9 @@ export default class UserPage extends Component{
                     icon={require('../img/default_logo.jpeg')}>
                     About
                 </ItemCell>
-                <Button style={styles.logoutButton} textStyle={styles.logoutButtonFontsize}>
+                <Button style={styles.logoutButton}
+                        textStyle={styles.logoutButtonFontsize}
+                        onPress={this._logOut}>
                     Sign Out
                 </Button>
             </View>

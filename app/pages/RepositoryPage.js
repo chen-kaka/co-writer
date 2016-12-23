@@ -42,16 +42,19 @@ export default class RepositoryPage extends Component {
                 >
                     <RepoListView
                         tabLabel="MyRepos"
+                        tabIndex="0"
                         navigator={this.props.navigator}
                     >
                     </RepoListView>
                     <RepoListView
                         tabLabel="ShareRepos"
+                        tabIndex="1"
                         navigator={this.props.navigator}
                     >
                     </RepoListView>
                     <RepoListView
                         tabLabel="CoWrites"
+                        tabIndex="2"
                         navigator={this.props.navigator}
                     >
                     </RepoListView>
