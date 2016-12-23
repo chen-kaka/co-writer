@@ -12,6 +12,7 @@ import NewRepoComponent from '../pages/NewRepoPage';
 import NewGroupComponent from '../pages/NewGroupPage';
 import RepoDetail from '../pages/RepoDetail';
 import RepoNodeDetail from '../pages/RepoNodeDetail';
+import FeedbackPage from '../pages/FeedbackPage';
 
 import {connect} from 'react-redux';
 import {
@@ -94,6 +95,10 @@ class App extends Component {
       case 'repoNode': //资源节点详情
         return(
             <RepoNodeDetail {...route.params} navigator={navigator} route={route}/>
+        )
+      case 'feedback':
+        return (
+            <FeedbackPage navigator={navigator} route={route} />
         )
       default:
         break

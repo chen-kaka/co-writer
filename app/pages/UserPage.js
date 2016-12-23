@@ -51,7 +51,7 @@ export default class UserPage extends Component{
 
     _gotoView(view) {
         this.props.navigator.push({
-            title: view,//capitalize(view),
+            title: view,
             id: view
         })
     }
@@ -107,7 +107,7 @@ export default class UserPage extends Component{
                         {userSummary}
                     </View>
                 </View>
-                <ItemCell
+                {/*<ItemCell
                     onPress={this._gotoView.bind(this, 'messages')}
                     showDisclosureIndicator={true}
                     showBottomBorder={false}
@@ -124,7 +124,7 @@ export default class UserPage extends Component{
                     containerStyle={itemCellColor.container}
                     icon={require('../img/groups.png')}>
                     Groups
-                </ItemCell>
+                </ItemCell>*/}
                 <ItemCell
                     onPress={this._gotoView.bind(this, 'feedback')}
                     showDisclosureIndicator={true}

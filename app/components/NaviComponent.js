@@ -73,6 +73,8 @@ export default class NaviComponent extends Component {
                 return _renderBarButton('newRepo', this.props.route.createRepo, true, {
                     width: 50
                 });
+            case 'feedback':
+                return _renderBarButton('send', this.props.route.sendFeedback, true, {});
             default:
                 break
         }
@@ -131,7 +133,7 @@ function _renderBarButton(text, handler, icon = false, buttonStyle = {}) {
                     </View>
                 </TouchableHighlight>
             )
-        case 'cancel': //
+        case 'cancel': //取消
             return (
                 <TouchableHighlight activeOpacity={0.7} onPress={handler}>
                     <View>
@@ -139,11 +141,19 @@ function _renderBarButton(text, handler, icon = false, buttonStyle = {}) {
                     </View>
                 </TouchableHighlight>
             )
-        case 'return': //
+        case 'return': //返回
             return (
                 <TouchableHighlight activeOpacity={0.7} onPress={handler}>
                     <View>
                         <Image source={IconImgConf.returnImg} style={styles.imgLeftStyle}/>
+                    </View>
+                </TouchableHighlight>
+            )
+        case 'send':  //反馈
+            return (
+                <TouchableHighlight activeOpacity={0.7} onPress={handler}>
+                    <View>
+                        <Text style={styles.naviText}>send</Text>
                     </View>
                 </TouchableHighlight>
             )
